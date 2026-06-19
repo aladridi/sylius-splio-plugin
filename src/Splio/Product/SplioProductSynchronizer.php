@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Dridialaa\SyliusSplioPlugin\Splio\Product;
 
 use Doctrine\ORM\EntityManagerInterface;
+use Dridialaa\SyliusSplioPlugin\Entity\Splio\SplioProductSyncLog;
 use Dridialaa\SyliusSplioPlugin\Repository\Splio\SplioProductSyncSettingsRepository;
 use Dridialaa\SyliusSplioPlugin\Splio\Api\SplioApiClientInterface;
 use Sylius\Component\Core\Model\ProductInterface;
@@ -53,11 +54,24 @@ final readonly class SplioProductSynchronizer
             }
 
             try {
-                $this->apiClient->request('PUT', $settings->getProductEndpoint(), $payload);
+                $response = $this->apiClient->request('PUT', $settings->getProductEndpoint(), $payload);
+                $this->entityManager->persist(SplioProductSyncLog::success(
+                    (string) $product->getCode(),
+                    $settings->getProductEndpoint(),
+                    $payload,
+                    $response,
+                ));
                 ++$succeeded;
             } catch (\Throwable $exception) {
                 ++$failed;
-                $errors[] = sprintf('%s: %s', (string) $product->getCode(), $exception->getMessage());
+                $error = sprintf('%s: %s', (string) $product->getCode(), $exception->getMessage());
+                $errors[] = $error;
+                $this->entityManager->persist(SplioProductSyncLog::failed(
+                    (string) $product->getCode(),
+                    $settings->getProductEndpoint(),
+                    $payload,
+                    $exception->getMessage(),
+                ));
             }
         }
 

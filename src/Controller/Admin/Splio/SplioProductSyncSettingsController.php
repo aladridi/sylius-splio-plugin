@@ -6,6 +6,7 @@ namespace Dridialaa\SyliusSplioPlugin\Controller\Admin\Splio;
 
 use Doctrine\ORM\EntityManagerInterface;
 use Dridialaa\SyliusSplioPlugin\Form\Type\Splio\SplioProductSyncSettingsType;
+use Dridialaa\SyliusSplioPlugin\Repository\Splio\SplioProductSyncLogRepository;
 use Dridialaa\SyliusSplioPlugin\Repository\Splio\SplioProductSyncSettingsRepository;
 use Dridialaa\SyliusSplioPlugin\Splio\Product\SplioProductSynchronizer;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -20,7 +21,7 @@ final class SplioProductSyncSettingsController extends AbstractController
     ) {
     }
 
-    public function __invoke(Request $request): Response
+    public function __invoke(Request $request, SplioProductSyncLogRepository $syncLogRepository): Response
     {
         $settings = $this->settingsRepository->getSettings();
         $form = $this->createForm(SplioProductSyncSettingsType::class, $settings);
@@ -37,6 +38,7 @@ final class SplioProductSyncSettingsController extends AbstractController
         return $this->render('@DridialaaSyliusSplioPlugin/admin/splio/product_sync_settings.html.twig', [
             'form' => $form,
             'settings' => $settings,
+            'logs' => $syncLogRepository->findLatest(),
         ]);
     }
 

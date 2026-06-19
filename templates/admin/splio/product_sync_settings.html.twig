@@ -82,6 +82,46 @@
                         </div>
                     </div>
                 </div>
+
+                <div class="card mt-4">
+                    <div class="card-header">
+                        <h2 class="card-title">Derniers logs produits</h2>
+                    </div>
+                    <div class="table-responsive">
+                        <table class="table card-table table-vcenter">
+                            <thead>
+                                <tr>
+                                    <th>Date</th>
+                                    <th>Produit</th>
+                                    <th>Statut</th>
+                                    <th>Endpoint</th>
+                                    <th>Erreur</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for log in logs %}
+                                    <tr>
+                                        <td class="text-muted">{{ log.createdAt|date('d/m/Y H:i') }}</td>
+                                        <td>{{ log.productCode }}</td>
+                                        <td>
+                                            {% if log.status == 'success' %}
+                                                <span class="badge bg-success text-success-fg">Success</span>
+                                            {% else %}
+                                                <span class="badge bg-danger text-danger-fg">Failed</span>
+                                            {% endif %}
+                                        </td>
+                                        <td><code>{{ log.endpoint }}</code></td>
+                                        <td class="text-muted">{{ log.errorMessage|default('-') }}</td>
+                                    </tr>
+                                {% else %}
+                                    <tr>
+                                        <td colspan="5" class="text-muted text-center">Aucun log produit pour le moment.</td>
+                                    </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
             </div>
         </div>
 
