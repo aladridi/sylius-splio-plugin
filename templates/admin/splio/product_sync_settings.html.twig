@@ -71,6 +71,13 @@
                                     <dt class="col-6">Dernière mise à jour</dt>
                                     <dd class="col-6 text-end">{{ settings.updatedAt|date('d/m/Y H:i') }}</dd>
                                 </dl>
+
+                                <form action="{{ path('app_admin_splio_product_sync_run') }}" method="post" class="mt-4">
+                                    <input type="hidden" name="_token" value="{{ csrf_token('splio_product_sync_run') }}">
+                                    <button type="submit" class="btn btn-primary w-100">
+                                        Synchroniser maintenant
+                                    </button>
+                                </form>
                             </div>
                         </div>
                     </div>
