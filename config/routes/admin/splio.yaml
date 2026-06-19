@@ -2,3 +2,8 @@ app_admin_splio_settings:
     path: /splio/settings
     methods: [GET, POST]
     controller: Dridialaa\SyliusSplioPlugin\Controller\Admin\Splio\SplioSettingsController
+
+app_admin_splio_product_sync_settings:
+    path: /splio/product-sync
+    methods: [GET, POST]
+    controller: Dridialaa\SyliusSplioPlugin\Controller\Admin\Splio\SplioProductSyncSettingsController

@@ -1,0 +1,82 @@
+{% extends '@SyliusAdmin/shared/layout/base.html.twig' %}
+
+{% form_theme form '@SyliusAdmin/shared/form_theme.html.twig' %}
+
+{% block title %}Synchronisation produits Splio{% endblock %}
+
+{% block body %}
+    {% include '@SyliusAdmin/shared/crud/common/sidebar.html.twig' %}
+    {% include '@SyliusAdmin/shared/crud/common/navbar.html.twig' %}
+
+    <div class="page-wrapper">
+        {% include '@SyliusAdmin/shared/crud/common/content/flashes.html.twig' %}
+
+        <div class="page-header d-print-none">
+            <div class="container-xl">
+                <div class="row align-items-center">
+                    <div class="col">
+                        <h1 class="page-title">Synchronisation produits vers Splio</h1>
+                        <div class="text-muted mt-1">Paramètres du flux catalogue Sylius envoyé vers Splio CRM.</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="page-body">
+            <div class="container-xl">
+                <div class="row">
+                    <div class="col-12 col-xl-8">
+                        <div class="card">
+                            <div class="card-body">
+                                {{ form_start(form, {'attr': {'novalidate': 'novalidate'}}) }}
+                                    <div class="row">
+                                        <div class="col-12 col-lg-8">
+                                            {{ form_row(form.enabled) }}
+                                            {{ form_row(form.syncMode) }}
+                                            {{ form_row(form.frequency) }}
+                                            {{ form_row(form.batchSize) }}
+                                            {{ form_row(form.includeDisabledProducts) }}
+                                            {{ form_row(form.includeVariants) }}
+                                            {{ form_row(form.syncImages) }}
+                                            {{ form_row(form.syncPrices) }}
+                                        </div>
+                                    </div>
+
+                                    <button type="submit" class="btn btn-primary mt-3">Enregistrer</button>
+                                {{ form_end(form) }}
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-12 col-xl-4 mt-4 mt-xl-0">
+                        <div class="card">
+                            <div class="card-header">
+                                <h2 class="card-title">État du flux</h2>
+                            </div>
+                            <div class="card-body">
+                                <dl class="row">
+                                    <dt class="col-6">Direction</dt>
+                                    <dd class="col-6 text-end">Sylius vers Splio</dd>
+
+                                    <dt class="col-6">Dernière synchro</dt>
+                                    <dd class="col-6 text-end">
+                                        {% if settings.lastSyncAt %}
+                                            {{ settings.lastSyncAt|date('d/m/Y H:i') }}
+                                        {% else %}
+                                            Jamais
+                                        {% endif %}
+                                    </dd>
+
+                                    <dt class="col-6">Dernière mise à jour</dt>
+                                    <dd class="col-6 text-end">{{ settings.updatedAt|date('d/m/Y H:i') }}</dd>
+                                </dl>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        {% include '@SyliusAdmin/shared/crud/common/content/footer.html.twig' %}
+    </div>
+{% endblock %}
