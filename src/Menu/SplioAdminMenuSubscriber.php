@@ -20,14 +20,8 @@ final class SplioAdminMenuSubscriber implements EventSubscriberInterface
     public function addSplioConfigurationItem(MenuBuilderEvent $event): void
     {
         $menu = $event->getMenu();
-        $configuration = $menu->getChild('configuration');
-
-        if (null === $configuration) {
-            return;
-        }
-
-        $splio = $configuration
-            ->addChild('splio', ['route' => 'app_admin_splio_settings'])
+        $splio = $menu
+            ->addChild('splio')
             ->setLabel('Splio')
             ->setLabelAttribute('icon', 'tabler:plug-connected')
         ;

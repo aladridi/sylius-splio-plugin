@@ -109,12 +109,22 @@ class SplioProductSyncSettings
         return $this->includeDisabledProducts;
     }
 
+    public function isIncludeDisabledProducts(): bool
+    {
+        return $this->includeDisabledProducts;
+    }
+
     public function setIncludeDisabledProducts(bool $includeDisabledProducts): void
     {
         $this->includeDisabledProducts = $includeDisabledProducts;
     }
 
     public function shouldIncludeVariants(): bool
+    {
+        return $this->includeVariants;
+    }
+
+    public function isIncludeVariants(): bool
     {
         return $this->includeVariants;
     }
@@ -129,12 +139,22 @@ class SplioProductSyncSettings
         return $this->syncImages;
     }
 
+    public function isSyncImages(): bool
+    {
+        return $this->syncImages;
+    }
+
     public function setSyncImages(bool $syncImages): void
     {
         $this->syncImages = $syncImages;
     }
 
     public function shouldSyncPrices(): bool
+    {
+        return $this->syncPrices;
+    }
+
+    public function isSyncPrices(): bool
     {
         return $this->syncPrices;
     }
