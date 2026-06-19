@@ -28,18 +28,28 @@ final class SplioAdminMenuSubscriber implements EventSubscriberInterface
 
         $splio = $configuration
             ->addChild('splio', ['route' => 'app_admin_splio_settings'])
-            ->setLabel('Splio CRM')
+            ->setLabel('Splio')
             ->setLabelAttribute('icon', 'tabler:plug-connected')
         ;
 
         $splio
             ->addChild('splio_settings', ['route' => 'app_admin_splio_settings'])
-            ->setLabel('Connexion API')
+            ->setLabel('Configuration globale')
         ;
 
         $splio
             ->addChild('splio_product_sync_settings', ['route' => 'app_admin_splio_product_sync_settings'])
-            ->setLabel('Produits vers Splio')
+            ->setLabel('Products')
+        ;
+
+        $splio
+            ->addChild('splio_customer_sync_settings', ['route' => 'app_admin_splio_customer_sync_settings'])
+            ->setLabel('Customers')
+        ;
+
+        $splio
+            ->addChild('splio_order_sync_settings', ['route' => 'app_admin_splio_order_sync_settings'])
+            ->setLabel('Orders')
         ;
     }
 }

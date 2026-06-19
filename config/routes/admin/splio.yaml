@@ -7,3 +7,13 @@ app_admin_splio_product_sync_settings:
     path: /splio/product-sync
     methods: [GET, POST]
     controller: Dridialaa\SyliusSplioPlugin\Controller\Admin\Splio\SplioProductSyncSettingsController
+
+app_admin_splio_customer_sync_settings:
+    path: /splio/customer-sync
+    methods: [GET]
+    controller: Dridialaa\SyliusSplioPlugin\Controller\Admin\Splio\SplioSyncPlaceholderController::customers
+
+app_admin_splio_order_sync_settings:
+    path: /splio/order-sync
+    methods: [GET]
+    controller: Dridialaa\SyliusSplioPlugin\Controller\Admin\Splio\SplioSyncPlaceholderController::orders
