@@ -1,0 +1,8 @@
+/.idea/
+/.phpunit.cache/
+/vendor/
+/var/
+composer.lock
+.env
+.env.*
+!.env.example

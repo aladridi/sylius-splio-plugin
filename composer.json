@@ -1,0 +1,21 @@
+{
+    "name": "dridialaa/sylius-splio-plugin",
+    "type": "sylius-plugin",
+    "description": "Splio CRM integration plugin for Sylius.",
+    "license": "proprietary",
+    "require": {
+        "php": "^8.3",
+        "sylius/sylius": "^2.2",
+        "symfony/http-client": "^7.4"
+    },
+    "autoload": {
+        "psr-4": {
+            "Dridialaa\\SyliusSplioPlugin\\": "src/"
+        }
+    },
+    "extra": {
+        "branch-alias": {
+            "dev-main": "1.0-dev"
+        }
+    }
+}

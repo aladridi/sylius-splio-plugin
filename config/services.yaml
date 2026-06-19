@@ -1,0 +1,37 @@
+parameters:
+    dridialaa_sylius_splio.base_uri: '%env(SPLIO_BASE_URI)%'
+    dridialaa_sylius_splio.client_id: '%env(SPLIO_CLIENT_ID)%'
+    dridialaa_sylius_splio.client_secret: '%env(SPLIO_CLIENT_SECRET)%'
+    dridialaa_sylius_splio.auth_endpoint: '%env(SPLIO_AUTH_ENDPOINT)%'
+    dridialaa_sylius_splio.timeout: '%env(int:SPLIO_TIMEOUT)%'
+
+services:
+    _defaults:
+        autowire: true
+        autoconfigure: true
+        public: false
+
+    Dridialaa\SyliusSplioPlugin\:
+        resource: '../src/'
+        exclude:
+            - '../src/DependencyInjection/'
+            - '../src/Entity/'
+            - '../src/DridialaaSyliusSplioPlugin.php'
+
+    Dridialaa\SyliusSplioPlugin\Controller\:
+        resource: '../src/Controller/'
+        tags: ['controller.service_arguments']
+
+    Dridialaa\SyliusSplioPlugin\Splio\Configuration\SplioConfig:
+        arguments:
+            $baseUri: '%dridialaa_sylius_splio.base_uri%'
+            $clientId: '%dridialaa_sylius_splio.client_id%'
+            $clientSecret: '%dridialaa_sylius_splio.client_secret%'
+            $authEndpoint: '%dridialaa_sylius_splio.auth_endpoint%'
+            $timeout: '%dridialaa_sylius_splio.timeout%'
+            $enabled: false
+
+    Dridialaa\SyliusSplioPlugin\Splio\Configuration\SplioConfigProviderInterface: '@Dridialaa\SyliusSplioPlugin\Splio\Configuration\DatabaseSplioConfigProvider'
+    Dridialaa\SyliusSplioPlugin\Splio\Api\SplioApiClientInterface: '@Dridialaa\SyliusSplioPlugin\Splio\Api\SplioApiClient'
+    Dridialaa\SyliusSplioPlugin\Splio\Authentication\SplioTokenProviderInterface: '@Dridialaa\SyliusSplioPlugin\Splio\Authentication\SplioTokenProvider'
+    Dridialaa\SyliusSplioPlugin\Splio\Contact\SplioContactManagerInterface: '@Dridialaa\SyliusSplioPlugin\Splio\Contact\SplioContactManager'

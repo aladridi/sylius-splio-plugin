@@ -1,0 +1,4 @@
+app_admin_splio_settings:
+    path: /splio/settings
+    methods: [GET, POST]
+    controller: Dridialaa\SyliusSplioPlugin\Controller\Admin\Splio\SplioSettingsController

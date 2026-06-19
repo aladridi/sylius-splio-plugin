@@ -1,0 +1,50 @@
+{% extends '@SyliusAdmin/shared/layout/base.html.twig' %}
+
+{% form_theme form '@SyliusAdmin/shared/form_theme.html.twig' %}
+
+{% block title %}Configuration Splio CRM{% endblock %}
+
+{% block body %}
+    {% include '@SyliusAdmin/shared/crud/common/sidebar.html.twig' %}
+    {% include '@SyliusAdmin/shared/crud/common/navbar.html.twig' %}
+
+    <div class="page-wrapper">
+        {% include '@SyliusAdmin/shared/crud/common/content/flashes.html.twig' %}
+
+        <div class="page-header d-print-none">
+            <div class="container-xl">
+                <div class="row align-items-center">
+                    <div class="col">
+                        <h1 class="page-title">Configuration Splio CRM</h1>
+                        <div class="text-muted mt-1">Paramètres de connexion à l’API CRM Splio.</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="page-body">
+            <div class="container-xl">
+                <div class="card">
+                    <div class="card-body">
+                        {{ form_start(form, {'attr': {'novalidate': 'novalidate'}}) }}
+                            <div class="row">
+                                <div class="col-12 col-lg-8">
+                                    {{ form_row(form.enabled) }}
+                                    {{ form_row(form.baseUri) }}
+                                    {{ form_row(form.authEndpoint) }}
+                                    {{ form_row(form.clientId) }}
+                                    {{ form_row(form.clientSecret) }}
+                                    {{ form_row(form.timeout) }}
+                                </div>
+                            </div>
+
+                            <button type="submit" class="btn btn-primary mt-3">Enregistrer</button>
+                        {{ form_end(form) }}
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        {% include '@SyliusAdmin/shared/crud/common/content/footer.html.twig' %}
+    </div>
+{% endblock %}
