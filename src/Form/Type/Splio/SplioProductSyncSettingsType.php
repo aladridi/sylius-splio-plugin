@@ -9,10 +9,12 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\IntegerType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Validator\Constraints\GreaterThanOrEqual;
 use Symfony\Component\Validator\Constraints\LessThanOrEqual;
+use Symfony\Component\Validator\Constraints\NotBlank;
 
 final class SplioProductSyncSettingsType extends AbstractType
 {
@@ -38,6 +40,10 @@ final class SplioProductSyncSettingsType extends AbstractType
                     'Toutes les heures' => SplioProductSyncSettings::FREQUENCY_HOURLY,
                     'Une fois par jour' => SplioProductSyncSettings::FREQUENCY_DAILY,
                 ],
+            ])
+            ->add('productEndpoint', TextType::class, [
+                'label' => 'Endpoint API produits',
+                'constraints' => [new NotBlank()],
             ])
             ->add('batchSize', IntegerType::class, [
                 'label' => 'Taille des lots',

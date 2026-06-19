@@ -33,6 +33,9 @@ class SplioProductSyncSettings
     #[ORM\Column(length: 32)]
     private string $frequency = self::FREQUENCY_HOURLY;
 
+    #[ORM\Column(name: 'product_endpoint', length: 255)]
+    private string $productEndpoint = '/products';
+
     #[ORM\Column(name: 'batch_size')]
     private int $batchSize = 50;
 
@@ -92,6 +95,16 @@ class SplioProductSyncSettings
     public function setFrequency(string $frequency): void
     {
         $this->frequency = $frequency;
+    }
+
+    public function getProductEndpoint(): string
+    {
+        return $this->productEndpoint;
+    }
+
+    public function setProductEndpoint(string $productEndpoint): void
+    {
+        $this->productEndpoint = '/' . ltrim($productEndpoint, '/');
     }
 
     public function getBatchSize(): int
@@ -172,6 +185,12 @@ class SplioProductSyncSettings
     public function setLastSyncAt(?\DateTimeImmutable $lastSyncAt): void
     {
         $this->lastSyncAt = $lastSyncAt;
+    }
+
+    public function markSynced(): void
+    {
+        $this->lastSyncAt = new \DateTimeImmutable();
+        $this->touch();
     }
 
     public function getUpdatedAt(): \DateTimeImmutable
